@@ -1,103 +1,112 @@
 using System;
 using UnityEngine;
 
-public class GameEvent
+namespace Infrastructure.GameEvents
 {
-    private event Action Event;
+    public class GameEvent : IGameEvent
+    {
+        private event Action Event;
 
-    public void Register(Action method)
-    {
-        if (method == null)
-            return;
-        
-        Event += method;
-    }
-    
-    public void UnRegister(Action method)
-    {
-        Event -= method;
-    }
+        public void Register(Action method)
+        {
+            if (method == null)
+                return;
 
-    public void Raise()
-    {
-        Event?.Invoke();
-    }
+            Event += method;
+        }
 
-    public void UnRegisterAll()
-    {
-        Event = null;
-    }
-}
+        public void UnRegister(Action method)
+        {
+            Event -= method;
+        }
 
-public class GameEvent<T>
-{
-    private event Action<T> Event;
-    
-    public void Register(Action<T> method)
-    {
-        if (method == null)
-            return;
-        
-        Event += method;
-    }
-    
-    public void UnRegister(Action<T> method)
-    {
-        Event -= method;
-    }
-    public void UnRegisterAll()
-    {
-        Event = null;
+        public void Raise()
+        {
+            Event?.Invoke();
+        }
+
+        public void UnRegisterAll()
+        {
+            Event = null;
+        }
     }
 
-    public void Raise(T param)
+    public class GameEvent<T> : IGameEvent
     {
-        if (Event != null)
-            Event?.Invoke(param);
-    }
-}
+        private event Action<T> Event;
 
-public class GameEvent<T1,T2>
-{
-    private event Action<T1,T2> Event;
+        public void Register(Action<T> method)
+        {
+            if (method == null)
+                return;
 
-    public void Register(Action<T1,T2> method)
-    {
-        Event += method;
-    }
-    
-    public void UnRegister(Action<T1,T2> method)
-    {
-        Event -= method;
-    }
+            Event += method;
+        }
 
-    public void UnRegisterAll()
-    {
-        Event = null;
-    }
-    
-    public void Raise(T1 param, T2 paramB)
-    {
-        Event?.Invoke(param,paramB);
-    }
-}
+        public void UnRegister(Action<T> method)
+        {
+            Event -= method;
+        }
 
-public class GameEvent<T1, T2, T3>
-{
-    private event Action<T1, T2, T3> Event;
+        public void Raise(T param)
+        {
+            if (Event != null)
+                Event?.Invoke(param);
+        }
 
-    public void Register(Action<T1, T2, T3> method)
-    {
-        Event += method;
+        public void UnRegisterAll()
+        {
+            Event = null;
+        }
     }
 
-    public void UnRegister(Action<T1, T2, T3> method)
+    public class GameEvent<T1, T2> : IGameEvent
     {
-        Event -= method;
+        private event Action<T1, T2> Event;
+
+        public void Register(Action<T1, T2> method)
+        {
+            Event += method;
+        }
+
+        public void UnRegister(Action<T1, T2> method)
+        {
+            Event -= method;
+        }
+
+        public void Raise(T1 param, T2 paramB)
+        {
+            Event?.Invoke(param, paramB);
+        }
+
+        public void UnRegisterAll()
+        {
+            Event = null;
+        }
     }
 
-    public void Raise(T1 param, T2 paramB, T3 paramC)
+    public class GameEvent<T1, T2, T3> : IGameEvent
     {
-        Event?.Invoke(param, paramB, paramC);
+        private event Action<T1, T2, T3> Event;
+
+        public void Register(Action<T1, T2, T3> method)
+        {
+            Event += method;
+        }
+
+        public void UnRegister(Action<T1, T2, T3> method)
+        {
+            Event -= method;
+        }
+
+        public void Raise(T1 param, T2 paramB, T3 paramC)
+        {
+            Event?.Invoke(param, paramB, paramC);
+        }
+
+        public void UnRegisterAll()
+        {
+            Event = null;
+        }
     }
 }

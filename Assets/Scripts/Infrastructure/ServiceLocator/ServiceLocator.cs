@@ -1,5 +1,6 @@
     using System;
     using System.Collections.Generic;
+    using UnityEngine;
 
     public static class ServiceLocator
     {
@@ -26,6 +27,7 @@
             }
             catch (Exception e)
             {
+                Debug.LogError(e.StackTrace);
                 return default;
             }
         }

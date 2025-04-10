@@ -36,8 +36,11 @@ public abstract class MenusController : MonoBehaviour
 
         foreach (var menu in menus)
         {
-            if (_menusContainer.Contains(menu))
-                continue;
+            if (menu == null || _menusContainer.Contains(menu))
+            {
+                Debug.LogWarning("There is either a Null value or duplicate menu in the menus list");
+                continue;   
+            }
                 
             _menusContainer.Add(menu);
         }
