@@ -7,17 +7,22 @@ using UnityEngine.Serialization;
 
 public abstract class UIMenuBase : MonoBehaviour
 {
-    [Header("Base Menu Refs")] [SerializeField]
-    private MenuName _menuName;
-
+    [Header("Base Menu Refs")] 
+    
+    [SerializeField] private MenuName _menuName;
     [SerializeField] private GameObject _menuContainer;
       
     public MenuName MenuName => _menuName;
 
     public void SetMenuActiveState(bool isActive)
     {
-        if (_menuContainer)
-            _menuContainer.SetActive(isActive);
+        if (_menuContainer == null)
+        {
+            Debug.LogWarning("Menu Container is null");
+            return;
+        }
+
+        _menuContainer.SetActive(isActive);
 
         if (isActive)
             OnContainerEnable();
