@@ -1,8 +1,11 @@
 using System;
+using Infrastructure.GameEvents;
 using UnityEngine;
 
 public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
 {
+    [SerializeField] private SoccerPlayerHighlightHandler _soccerPlayerHighlightHandler;
+    
     private Transform _transform;
     private bool _isSelected;
 
@@ -11,6 +14,7 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
     private void Awake()
     {
         _transform = transform;
+        _soccerPlayerHighlightHandler ??= GetComponentInParent<SoccerPlayerHighlightHandler>();
     }
 
     private void OnDestroy()
@@ -25,12 +29,14 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
     {
         _onSelection.Register(onSelection);
         ToggleHighlight(true);
+        _soccerPlayerHighlightHandler.Highlight();
     }
 
     public void UnHighlight()
     {
         _onSelection.UnRegisterAll();
         ToggleHighlight(false);
+        _soccerPlayerHighlightHandler.UnHighlight();
     }
 
     public void Select()

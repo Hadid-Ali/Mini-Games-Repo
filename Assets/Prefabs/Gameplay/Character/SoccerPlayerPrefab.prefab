@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 7377712729745168513}
   - component: {fileID: 1201053458699099722}
   - component: {fileID: 2655925099058713928}
+  - component: {fileID: 5039147085064687925}
+  - component: {fileID: 1882406573928876862}
+  - component: {fileID: 1417795465809387399}
   m_Layer: 0
   m_Name: SoccerPlayerPrefab
   m_TagString: Untagged
@@ -28,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.08759302, y: 0.08759302, z: 0.08759302}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e7e74cc9d6dcdc34bab28f2b12102d52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,3 +100,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46ab64e337c02b4cbcc04689fc5305f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soccerPlayerHighlightHandler: {fileID: 1882406573928876862}
+--- !u!114 &5039147085064687925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498191838338609310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940574ab2d32ba343ab6cc1b65b5cdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 1201053458699099722}
+--- !u!114 &1882406573928876862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498191838338609310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92bc18c37c251ca4c972d03c57c4476a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soccerPlayerViewHandler: {fileID: 5039147085064687925}
+  _highlightedMaterial: {fileID: 2100000, guid: e7e7c996aef982f4fb41b9a8774ad754, type: 2}
+  _normalMaterial: {fileID: 2100000, guid: e7e74cc9d6dcdc34bab28f2b12102d52, type: 2}
+--- !u!210 &1417795465809387399
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498191838338609310}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 0
