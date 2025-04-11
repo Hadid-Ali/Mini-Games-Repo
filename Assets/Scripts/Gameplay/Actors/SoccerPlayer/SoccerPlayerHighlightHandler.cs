@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoccerPlayerHighlightHandler : MonoBehaviour
+public class SoccerPlayerHighlightHandler : MonoBehaviour, IHighlighterComponent
 {
     [SerializeField] private SoccerPlayerViewHandler _soccerPlayerViewHandler;
-    
-    [Header("Materials")]
-    [SerializeField] private Material _highlightedMaterial;
+
+    [Header("Materials")] [SerializeField] private Material _highlightedMaterial;
     [SerializeField] private Material _normalMaterial;
 
     private void Start()

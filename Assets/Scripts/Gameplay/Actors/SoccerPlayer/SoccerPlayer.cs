@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
 {
-    [SerializeField] private SoccerPlayerHighlightHandler _soccerPlayerHighlightHandler;
+    [SerializeField] private IHighlighterComponent _soccerPlayerHighlightHandler;
     
     private Transform _transform;
     private bool _isSelected;
@@ -14,7 +14,12 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
     private void Awake()
     {
         _transform = transform;
-        _soccerPlayerHighlightHandler ??= GetComponentInParent<SoccerPlayerHighlightHandler>();
+        CheckAndFixDependencies();
+    }
+
+    private void CheckAndFixDependencies()
+    {
+        _soccerPlayerHighlightHandler ??= GetComponent<IHighlighterComponent>();
     }
 
     private void OnDestroy()
@@ -27,6 +32,7 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
 
     public void Highlight(Action<bool> onSelection)
     {
+        CheckAndFixDependencies();
         _onSelection.Register(onSelection);
         ToggleHighlight(true);
         _soccerPlayerHighlightHandler.Highlight();
@@ -34,6 +40,7 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
 
     public void UnHighlight()
     {
+        CheckAndFixDependencies();
         _onSelection.UnRegisterAll();
         ToggleHighlight(false);
         _soccerPlayerHighlightHandler.UnHighlight();
