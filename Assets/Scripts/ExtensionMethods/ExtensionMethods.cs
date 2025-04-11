@@ -5,17 +5,8 @@ using UnityEngine;
 public static class ExtensionMethods
 {
     public static T GetRandom<T>(this T[] list) => list[Random.Range(0, list.Length)];
+    public static T GetRandom<T>(this List<T> list) => list[Random.Range(0, list.Count)];
     
-    public static T GetKeyByValue<T, V>(this Dictionary<T, V> dictionary, V value)
-    {
-        foreach (KeyValuePair<T, V> pair in dictionary)
-        {
-            if (pair.Value.Equals(value))
-                return pair.Key;
-        }
-        return default;
-    }
-
     public static void SetActive(this List<GameObject> gameObjects, bool status)
     {
         gameObjects.ToArray().SetActive(status);

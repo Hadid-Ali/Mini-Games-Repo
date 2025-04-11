@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HardModeMetaData
   m_EditorClassIdentifier: 
   <GameMode>k__BackingField: 2
+  <PlayerCompositionType>k__BackingField: 1
   <NumberOfSoccerPlayers>k__BackingField: 12
   <MinTimeForSelection>k__BackingField: 0.5
   <MaxTimeForSelection>k__BackingField: 0.7

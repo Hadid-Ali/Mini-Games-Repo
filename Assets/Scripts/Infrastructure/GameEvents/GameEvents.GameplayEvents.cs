@@ -4,7 +4,7 @@ namespace Infrastructure.GameEvents
     {
         public static class GameplayEvents
         {
-            
+            public static GameEvent<GameMode> GameModeSelected = new();
         }
     }
 }

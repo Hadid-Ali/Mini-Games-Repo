@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MediumModeMetaData
   m_EditorClassIdentifier: 
   <GameMode>k__BackingField: 1
+  <PlayerCompositionType>k__BackingField: 1
   <NumberOfSoccerPlayers>k__BackingField: 6
   <MinTimeForSelection>k__BackingField: 1
   <MaxTimeForSelection>k__BackingField: 1
@@ -20,3 +21,4 @@ MonoBehaviour:
   <ComboScore>k__BackingField: 2
   <MinNumberOfTapsForMove>k__BackingField: 1
   <MaxNumberOfTapsForMove>k__BackingField: 1
+  <NegativeScoreForMistake>k__BackingField: 0
