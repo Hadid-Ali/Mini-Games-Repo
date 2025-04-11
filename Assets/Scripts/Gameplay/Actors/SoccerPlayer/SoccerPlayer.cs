@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
 {
-    [SerializeField] private IHighlighterComponent _soccerPlayerHighlightHandler;
+    private IHighlighterComponent _soccerPlayerHighlightHandler;
     
     private Transform _transform;
     private bool _isSelected;

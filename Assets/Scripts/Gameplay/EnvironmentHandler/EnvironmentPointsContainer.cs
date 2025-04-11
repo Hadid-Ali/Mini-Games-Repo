@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class EnvironmentPointsContainer : MonoBehaviour, ITransformPointsCollectionServices
 {
     [SerializeField] private Transform _soccerPointTransform;
@@ -9,4 +8,9 @@ public class EnvironmentPointsContainer : MonoBehaviour, ITransformPointsCollect
 
     public Transform GetSoccerBallPoint() => _soccerPointTransform;
     public Transform[] GetPlayerSpawnPoints() => _playerSpawnPoints;
+
+    private void Awake()
+    {
+        ServiceLocator.RegisterService<ITransformPointsCollectionServices>(this);
+    }
 }
