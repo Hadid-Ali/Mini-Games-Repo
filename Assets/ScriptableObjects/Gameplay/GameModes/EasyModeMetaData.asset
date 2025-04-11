@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24812edc66a20b34fbbc550792584c77, type: 3}
+  m_Name: EasyModeMetaData
+  m_EditorClassIdentifier: 
+  <GameMode>k__BackingField: 0
+  <NumberOfSoccerPlayers>k__BackingField: 4
+  <MinTimeForSelection>k__BackingField: 1.5
+  <MaxTimeForSelection>k__BackingField: 1.5
+  <ConsecutiveHitsForCombo>k__BackingField: 0
+  <ComboScore>k__BackingField: 0
+  <MinNumberOfTapsForMove>k__BackingField: 1
+  <MaxNumberOfTapsForMove>k__BackingField: 1
