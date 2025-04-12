@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Infrastructure.GameEvents;
 using UnityEngine;
 
 public class GameScoreEvaluator : MonoBehaviour
@@ -12,6 +13,7 @@ public class GameScoreEvaluator : MonoBehaviour
     
     private int _currentScore = 0;
     private int _currentConsecutiveHits = 0;
+    private int _normalScoreAddition = 1;
 
     public void Initialize(GameModeMetaData gameModeMetaData)
     {
@@ -36,17 +38,27 @@ public class GameScoreEvaluator : MonoBehaviour
                 AddScore();
             }
         }
+        else
+        {
+            AddScoreInternal(-_negativeMarking);
+        }
     }
 
     private void AddScore()
     {
-        _currentScore++;
+        AddScoreInternal(_normalScoreAddition);
         _currentConsecutiveHits++;
 
         if (_currentConsecutiveHits >= _stepsForCombo)
         {
             _currentConsecutiveHits = 0;
-            _currentScore += _comboScore;
+            AddScoreInternal(_comboScore);
         }
+    }
+
+    private void AddScoreInternal(int score)
+    {
+        _currentScore += score;
+        GameEvents.GameplayUIEvents.ScoreUpdated.Raise(_currentScore, score);
     }
 }
