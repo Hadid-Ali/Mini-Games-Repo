@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Infrastructure.GameEvents;
 using UnityEngine;
 
 public class GameActorsSpawner : MonoBehaviour
@@ -31,7 +32,8 @@ public class GameActorsSpawner : MonoBehaviour
 
     public void SpawnSoccerBall()
     {
-        Instantiate(_soccerBallPrefab, _soccerBallPointTransform.position, _soccerBallPointTransform.rotation);
+        SoccerBall soccerBall = Instantiate(_soccerBallPrefab, _soccerBallPointTransform.position, _soccerBallPointTransform.rotation);
+        GameEvents.GameSetupEvents.SoccerBallSpawned.Raise(soccerBall);
     }
 
     public void SpawnSoccerPlayers(int count, PlayerCompositionType compositionType)
@@ -78,5 +80,6 @@ public class GameActorsSpawner : MonoBehaviour
             spawnPoint.rotation);
 
         player.GetComponent<SoccerPlayerViewHandler>().SetIcon(_soccerPlayerMetaDatas.GetRandom().Icon);
+        GameEvents.GameSetupEvents.SoccerPlayerSpawned.Raise(player);
     }
 }

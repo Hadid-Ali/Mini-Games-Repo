@@ -13,12 +13,12 @@ public class LevelSetupHandler : MonoBehaviour
    
    private void OnEnable()
    {
-      GameEvents.GameplayEvents.GameModeSelected.Register(SetupLevel);
+      GameEvents.GameSetupEvents.GameModeSelected.Register(SetupLevel);
    }
 
    private void OnDisable()
    {
-      GameEvents.GameplayEvents.GameModeSelected.UnRegister(SetupLevel);
+      GameEvents.GameSetupEvents.GameModeSelected.UnRegister(SetupLevel);
    }
 
    [ContextMenu("Setup Level")]
@@ -31,6 +31,7 @@ public class LevelSetupHandler : MonoBehaviour
    {
       _currentGameMode = _gameModes.Find(x => x.GameMode == mode);
       SetupLevelInternal();
+      GameEvents.GameSetupEvents.GameModeInitialized.Raise(_currentGameMode);
    }
 
    private void SetupLevelInternal()

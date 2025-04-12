@@ -8,8 +8,6 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
     
     private Transform _transform;
     private bool _isSelected;
-
-    private GameEvent<bool> _onSelection = new();
     
     private void Awake()
     {
@@ -22,18 +20,11 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
         _soccerPlayerHighlightHandler ??= GetComponent<IHighlighterComponent>();
     }
 
-    private void OnDestroy()
-    {
-        _onSelection.UnRegisterAll();
-        _onSelection = null;
-    }
-
     public Vector2 GetTargetPosition() => _transform.position;
 
-    public void Highlight(Action<bool> onSelection)
+    public void Highlight()
     {
         CheckAndFixDependencies();
-        _onSelection.Register(onSelection);
         ToggleHighlight(true);
         _soccerPlayerHighlightHandler.Highlight();
     }
@@ -41,14 +32,14 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
     public void UnHighlight()
     {
         CheckAndFixDependencies();
-        _onSelection.UnRegisterAll();
         ToggleHighlight(false);
         _soccerPlayerHighlightHandler.UnHighlight();
     }
 
     public void Select()
     {
-        _onSelection.Raise(_isSelected);
+        GameEvents.GameplayEvents.SoccerPlayerSelected.Raise(this, _isSelected);
+        UnHighlight();
     }
 
     private void ToggleHighlight(bool status)
