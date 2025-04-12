@@ -9,6 +9,8 @@ public class SoccerPlayer : MonoBehaviour,ISoccerBallTarget
     private Transform _transform;
     private bool _isSelected;
     
+    public bool IsHighlighted => _soccerPlayerHighlightHandler.IsHighlighted;
+    
     private void Awake()
     {
         _transform = transform;

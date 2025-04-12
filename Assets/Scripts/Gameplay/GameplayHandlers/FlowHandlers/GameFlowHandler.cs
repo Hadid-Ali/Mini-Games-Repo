@@ -33,6 +33,8 @@ public class GameFlowHandler : MonoBehaviour
    {
       Debug.Log($"Selected {soccerPlayer} with selection status {selectionStatus}");
       _gameScoreEvaluator.AddScoreAgainstPlayer(selectionStatus);
+      
+      Invoke(nameof(StartRound), 1f);
    }
 
    private void OnGameModeInitialized(GameModeMetaData gameModeMetaData)
@@ -40,9 +42,14 @@ public class GameFlowHandler : MonoBehaviour
       _currentGameMode = gameModeMetaData;
       _gameScoreEvaluator.Initialize(gameModeMetaData);
       
-      Invoke(nameof(HighlightPlayers), 0.5f);
+      Invoke(nameof(StartRound), 0.5f);
    }
 
+   private void StartRound()
+   {
+      HighlightPlayers();
+   }
+   
    private void HighlightPlayers()
    {
       int movesForScore =

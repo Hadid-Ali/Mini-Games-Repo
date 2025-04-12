@@ -22,13 +22,35 @@ public class SoccerPlayersContainer : MonoBehaviour
       _players.Add(soccerPlayer);
    }
 
+   private void UnHighlightAll()
+   {
+      for (int i = 0; i < _players.Count; i++)
+      {
+         _players[i].UnHighlight();
+      }
+   }
+   
    public void Highlight(int count)
    {
-      List<SoccerPlayer> players = _players.GetRandom(count);
-
-      for (int i = 0; i < players.Count; i++)
+      UnHighlightAll();
+      
+      int spawnCount = 0;
+      
+      if (_players.Count < count)
       {
-         players[i].Highlight();
+         Debug.LogError("Not Enough Players");
+         return;
+      }
+
+      while (spawnCount < count)
+      {
+         SoccerPlayer player = _players.GetRandom();
+
+         if (player.IsHighlighted)
+            continue;
+         
+         player.Highlight();
+         spawnCount++;
       }
    }
 }

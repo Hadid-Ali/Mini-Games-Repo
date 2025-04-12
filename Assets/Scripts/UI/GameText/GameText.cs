@@ -24,6 +24,6 @@ public class GameText : MonoBehaviour,IGameText
 
     public void UnSubscribeFromTextUpdate(Action onTextUpdated)
     {
-        throw new NotImplementedException();
+        _onTextUpdated.UnRegister(onTextUpdated);
     }
 }
