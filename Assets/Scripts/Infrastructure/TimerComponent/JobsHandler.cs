@@ -25,7 +25,7 @@ public class JobsHandler : MonoBehaviour
     private void OnJobScheduleRequested(JobMetaData jobMetaData)
     {
         JobComponent job = _jobsFactory.CreateJob(jobMetaData.Mode);
-        job.StartJob((jobMetaData));
+        job.StartJob(jobMetaData, RemoveJob);
         _scheduledJobs.Add(job);
     }
 
@@ -43,9 +43,13 @@ public class JobsHandler : MonoBehaviour
 
     private void StopJobInternal(JobComponent jobComponent)
     {
-        _scheduledJobs.Remove(jobComponent);
         jobComponent.Stop();
-        
+        RemoveJob(jobComponent);
+    }
+
+    private void RemoveJob(JobComponent jobComponent)
+    {
+        _scheduledJobs.Remove(jobComponent);
         Destroy(jobComponent.gameObject);
     }
 }

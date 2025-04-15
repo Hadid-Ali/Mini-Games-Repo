@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: EasyModeMetaData
   m_EditorClassIdentifier: 
   <GameMode>k__BackingField: 0
+  <PlayerCompositionType>k__BackingField: 0
   <NumberOfSoccerPlayers>k__BackingField: 4
+  <TotalGameTime>k__BackingField: 30
   <MinTimeForSelection>k__BackingField: 1.5
   <MaxTimeForSelection>k__BackingField: 1.5
   <ConsecutiveHitsForCombo>k__BackingField: 0
   <ComboScore>k__BackingField: 0
   <MinNumberOfTapsForMove>k__BackingField: 1
   <MaxNumberOfTapsForMove>k__BackingField: 1
+  <NegativeScoreForMistake>k__BackingField: 0

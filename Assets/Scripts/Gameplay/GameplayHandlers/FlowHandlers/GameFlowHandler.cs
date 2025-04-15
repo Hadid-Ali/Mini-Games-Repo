@@ -28,13 +28,22 @@ public class GameFlowHandler : MonoBehaviour
    {
       _soccerBall = soccerBall;
    }
-   
+
    private void OnSoccerPlayerSelected(SoccerPlayer soccerPlayer, bool selectionStatus)
    {
       Debug.Log($"Selected {soccerPlayer} with selection status {selectionStatus}");
-      _gameScoreEvaluator.AddScoreAgainstPlayer(selectionStatus);
-      
-      Invoke(nameof(StartRound), 1f);
+      _gameScoreEvaluator.AddScoreAgainstPlayer(selectionStatus, out bool isCompleted);
+
+      if (!isCompleted)
+         return;
+
+      NextRound();
+   }
+
+   private void NextRound()
+   {
+      CancelInvoke(nameof(CancelInvoke));
+      StartRoundWithDelay();
    }
 
    private void OnGameModeInitialized(GameModeMetaData gameModeMetaData)
@@ -42,12 +51,30 @@ public class GameFlowHandler : MonoBehaviour
       _currentGameMode = gameModeMetaData;
       _gameScoreEvaluator.Initialize(gameModeMetaData);
       
+      GameEvents.JobEvents.ScheduleJob.Raise(new JobMetaData()
+      {
+         JobAction = OnGameCompleted,
+         StepDelay = gameModeMetaData.TotalGameTime,
+         Mode = JobTimeMode.TIME,
+      });
+      StartRoundWithDelay();
+   }
+
+   private void StartRoundWithDelay()
+   {
       Invoke(nameof(StartRound), 0.5f);
+   }
+
+   private void OnGameCompleted()
+   {
+      Debug.Log($"Game completed {_gameScoreEvaluator.CurrentScore}");
    }
 
    private void StartRound()
    {
       HighlightPlayers();
+      Invoke(nameof(RoundFailed),
+         Random.Range(_currentGameMode.MinTimeForSelection, _currentGameMode.MaxTimeForSelection));
    }
    
    private void HighlightPlayers()
@@ -57,5 +84,10 @@ public class GameFlowHandler : MonoBehaviour
 
       _soccerPlayersContainer.Highlight(movesForScore);
       _gameScoreEvaluator.SetMovesForScore(movesForScore);
+   }
+
+   private void RoundFailed()
+   {
+      Debug.LogError("Round Failed");
    }
 }

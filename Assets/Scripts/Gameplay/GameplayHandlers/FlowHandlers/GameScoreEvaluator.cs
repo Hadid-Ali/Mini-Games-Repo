@@ -15,6 +15,8 @@ public class GameScoreEvaluator : MonoBehaviour
     private int _currentConsecutiveHits = 0;
     private int _normalScoreAddition = 1;
 
+    public int CurrentScore => _currentScore;
+    
     public void Initialize(GameModeMetaData gameModeMetaData)
     {
         _stepsForCombo = gameModeMetaData.ConsecutiveHitsForCombo;
@@ -27,8 +29,9 @@ public class GameScoreEvaluator : MonoBehaviour
         _stepsForScore = movesForScore;
     }
 
-    public void AddScoreAgainstPlayer(bool status)
+    public void AddScoreAgainstPlayer(bool status,out bool isCompleted)
     {
+        isCompleted = false;
         if (status)
         {
             _stepsForScore--;
@@ -36,11 +39,13 @@ public class GameScoreEvaluator : MonoBehaviour
             if (_stepsForScore <= 0)
             {
                 AddScore();
+                isCompleted = true;
             }
         }
         else
         {
             AddScoreInternal(-_negativeMarking);
+            isCompleted = true;
         }
     }
 

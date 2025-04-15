@@ -8,10 +8,10 @@ public class FramesBasedJob : JobComponent
     private WaitForEndOfFrame _frameDelay = new();
     private float _frames;
 
-    public override void StartJob(JobMetaData jobMetaData)
+    public override void StartJob(JobMetaData jobMetaData,Action<JobComponent> onJobCompleted)
     {
         _frames = jobMetaData.StepDelay;
-        base.StartJob(jobMetaData);
+        base.StartJob(jobMetaData, onJobCompleted);
     }
 
     protected override IEnumerator JobRoutine()

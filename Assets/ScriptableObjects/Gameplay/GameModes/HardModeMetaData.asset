@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GameMode>k__BackingField: 2
   <PlayerCompositionType>k__BackingField: 1
-  <NumberOfSoccerPlayers>k__BackingField: 12
+  <NumberOfSoccerPlayers>k__BackingField: 10
+  <TotalGameTime>k__BackingField: 30
   <MinTimeForSelection>k__BackingField: 0.5
   <MaxTimeForSelection>k__BackingField: 0.7
   <ConsecutiveHitsForCombo>k__BackingField: 5

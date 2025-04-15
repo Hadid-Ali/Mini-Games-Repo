@@ -10,6 +10,7 @@ public class GameModeMetaData : ScriptableObject
     [field: SerializeField] public PlayerCompositionType PlayerCompositionType { get; private set; }
 
     [field: SerializeField, Header("Game Settings")] public int NumberOfSoccerPlayers { get; private set; }
+    [field: SerializeField] public float TotalGameTime { get; private set; }
     [field: SerializeField] public float MinTimeForSelection { get; private set; }
     [field: SerializeField] public float MaxTimeForSelection { get; private set; }
 

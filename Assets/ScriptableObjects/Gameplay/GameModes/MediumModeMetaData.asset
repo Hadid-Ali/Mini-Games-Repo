@@ -15,10 +15,11 @@ MonoBehaviour:
   <GameMode>k__BackingField: 1
   <PlayerCompositionType>k__BackingField: 1
   <NumberOfSoccerPlayers>k__BackingField: 6
-  <MinTimeForSelection>k__BackingField: 1
-  <MaxTimeForSelection>k__BackingField: 1
-  <ConsecutiveHitsForCombo>k__BackingField: 3
-  <ComboScore>k__BackingField: 2
+  <TotalGameTime>k__BackingField: 30
+  <MinTimeForSelection>k__BackingField: 1.5
+  <MaxTimeForSelection>k__BackingField: 1.5
+  <ConsecutiveHitsForCombo>k__BackingField: 1
+  <ComboScore>k__BackingField: 1
   <MinNumberOfTapsForMove>k__BackingField: 1
   <MaxNumberOfTapsForMove>k__BackingField: 1
   <NegativeScoreForMistake>k__BackingField: 0

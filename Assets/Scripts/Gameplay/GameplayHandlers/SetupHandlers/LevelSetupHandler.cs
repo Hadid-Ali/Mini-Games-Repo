@@ -21,12 +21,6 @@ public class LevelSetupHandler : MonoBehaviour
       GameEvents.GameSetupEvents.GameModeSelected.UnRegister(SetupLevel);
    }
 
-   [ContextMenu("Setup Level")]
-   public void SetupLevelTest()
-   {
-      SetupLevel(GameMode.MEDIUM);
-   }
-
    private void SetupLevel(GameMode mode)
    {
       _currentGameMode = _gameModes.Find(x => x.GameMode == mode);

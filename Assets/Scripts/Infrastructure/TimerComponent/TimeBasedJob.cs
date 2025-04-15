@@ -7,10 +7,10 @@ public class TimeBasedJob : JobComponent
 {
    private WaitForSeconds _timeDelay;
 
-   public override void StartJob(JobMetaData jobMetaData)
+   public override void StartJob(JobMetaData jobMetaData,Action<JobComponent> onJobCompleted)
    {
       _timeDelay = new WaitForSeconds(jobMetaData.StepDelay);
-      base.StartJob(jobMetaData);
+      base.StartJob(jobMetaData, onJobCompleted);
    }
 
    protected override IEnumerator JobRoutine()

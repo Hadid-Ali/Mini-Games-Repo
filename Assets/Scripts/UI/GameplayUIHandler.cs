@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Infrastructure.GameEvents;
 using UnityEngine;
 
-public class GameplayUIHandler : MonoBehaviour
+public class GameplayUIHandler : UIMenuBase
 {
     [SerializeField] private GameText _scoreText;
 
