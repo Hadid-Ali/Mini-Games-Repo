@@ -44,7 +44,7 @@ public class GameScoreEvaluator : MonoBehaviour
         }
         else
         {
-            AddScoreInternal(-_negativeMarking);
+            AddScoreInternal(_negativeMarking);
             isCompleted = true;
         }
     }
@@ -63,6 +63,7 @@ public class GameScoreEvaluator : MonoBehaviour
 
     private void AddScoreInternal(int score)
     {
+        Debug.LogError(score);
         _currentScore += score;
         GameEvents.GameplayUIEvents.ScoreUpdated.Raise(_currentScore, score);
     }

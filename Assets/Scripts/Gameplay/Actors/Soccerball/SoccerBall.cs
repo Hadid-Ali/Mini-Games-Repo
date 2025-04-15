@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Infrastructure.GameEvents;
 using UnityEngine;
 
@@ -33,6 +35,9 @@ public class SoccerBall : MonoBehaviour
 
     private void OnRoundStarted()
     {
+        if(TryGetComponent(out DOTweenAnimation tweenerCore))
+            Destroy(tweenerCore);
+        
         _transform.position = _defaultPosition;
     }
 

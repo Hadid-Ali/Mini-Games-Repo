@@ -6,6 +6,7 @@ namespace Infrastructure.GameEvents
         {
             public static GameEvent<SoccerPlayer, bool> SoccerPlayerSelected = new();
             public static GameEvent RoundStarted = new();
+            public static GameEvent GameCompleted = new();
         }
     }
 }

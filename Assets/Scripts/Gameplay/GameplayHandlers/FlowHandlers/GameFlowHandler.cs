@@ -33,9 +33,11 @@ public class GameFlowHandler : MonoBehaviour
    private void OnSoccerPlayerSelected(SoccerPlayer soccerPlayer, bool selectionStatus)
    {
       _gameScoreEvaluator.AddScoreAgainstPlayer(selectionStatus, out bool isCompleted);
-
+      CancelAutoFailedCall();
+      
       if (!isCompleted && selectionStatus)
       {
+         QueueAutomaticFailedCall();
          return;  
       }
 
@@ -52,7 +54,6 @@ public class GameFlowHandler : MonoBehaviour
 
    private void NextRound()
    {
-      CancelInvoke(nameof(CancelInvoke));
       StartRoundWithDelay();
    }
 
@@ -93,14 +94,23 @@ public class GameFlowHandler : MonoBehaviour
    
    private void StartRoundWithDelay()
    {
-      Invoke(nameof(StartRound), 0.5f);
+      Invoke(nameof(StartRound), 1f);
    }
 
    private void StartRound()
    {
       GameEvents.GameplayEvents.RoundStarted.Raise();
       HighlightPlayers();
-      
+      QueueAutomaticFailedCall();
+   }
+   
+   private void CancelAutoFailedCall()
+   {
+      CancelInvoke(nameof(RoundFailed));
+   }
+   
+   private void QueueAutomaticFailedCall()
+   {
       Invoke(nameof(RoundFailed),
          Random.Range(_currentGameMode.MinTimeForSelection, _currentGameMode.MaxTimeForSelection));
    }
@@ -116,7 +126,7 @@ public class GameFlowHandler : MonoBehaviour
    
    private void OnGameCompleted()
    {
-      Debug.Log($"Game completed {_gameScoreEvaluator.CurrentScore}");
+      GameEvents.GameplayEvents.GameCompleted.Raise();
       _gameFlowOperationsController.OnGameOver();  
    }
 
