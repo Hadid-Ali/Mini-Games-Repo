@@ -31,7 +31,6 @@ public class GameFlowHandler : MonoBehaviour
 
    private void OnSoccerPlayerSelected(SoccerPlayer soccerPlayer, bool selectionStatus)
    {
-      Debug.Log($"Selected {soccerPlayer} with selection status {selectionStatus}");
       _gameScoreEvaluator.AddScoreAgainstPlayer(selectionStatus, out bool isCompleted);
 
       if (!isCompleted)
@@ -65,11 +64,6 @@ public class GameFlowHandler : MonoBehaviour
       Invoke(nameof(StartRound), 0.5f);
    }
 
-   private void OnGameCompleted()
-   {
-      Debug.Log($"Game completed {_gameScoreEvaluator.CurrentScore}");
-   }
-
    private void StartRound()
    {
       HighlightPlayers();
@@ -85,7 +79,12 @@ public class GameFlowHandler : MonoBehaviour
       _soccerPlayersContainer.Highlight(movesForScore);
       _gameScoreEvaluator.SetMovesForScore(movesForScore);
    }
-
+   
+   private void OnGameCompleted()
+   {
+      Debug.Log($"Game completed {_gameScoreEvaluator.CurrentScore}");
+   }
+   
    private void RoundFailed()
    {
       Debug.LogError("Round Failed");
