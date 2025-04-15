@@ -6,6 +6,7 @@ public class GameFlowHandler : MonoBehaviour
 {
    [SerializeField] private SoccerPlayersContainer _soccerPlayersContainer;
    [SerializeField] private GameScoreEvaluator _gameScoreEvaluator;
+   [SerializeField] private GameFlowOperationsController _gameFlowOperationsController;
    
    private SoccerBall _soccerBall;
    private GameModeMetaData _currentGameMode;
@@ -33,9 +34,19 @@ public class GameFlowHandler : MonoBehaviour
    {
       _gameScoreEvaluator.AddScoreAgainstPlayer(selectionStatus, out bool isCompleted);
 
-      if (!isCompleted)
-         return;
+      if (!isCompleted && selectionStatus)
+      {
+         return;  
+      }
 
+      if (!selectionStatus)
+      {
+         RoundFailed();
+      }
+      else
+      {
+         RoundWin();
+      }
       NextRound();
    }
 
@@ -49,16 +60,37 @@ public class GameFlowHandler : MonoBehaviour
    {
       _currentGameMode = gameModeMetaData;
       _gameScoreEvaluator.Initialize(gameModeMetaData);
-      
+
+      ScheduleGameTimeJob(gameModeMetaData);
+      StartRoundWithDelay();
+   }
+   
+   //Can Do Some Refactor to combine the Jobs later
+   private void ScheduleGameTimeJob(GameModeMetaData gameModeMetaData)
+   {
+      //Job executes after 30 seconds only once
       GameEvents.JobEvents.ScheduleJob.Raise(new JobMetaData()
       {
          JobAction = OnGameCompleted,
          StepDelay = gameModeMetaData.TotalGameTime,
          Mode = JobTimeMode.TIME,
       });
-      StartRoundWithDelay();
+      
+      //Job executes Each second to update game time
+      GameEvents.JobEvents.ScheduleJob.Raise(new JobMetaData()
+      {
+         StepDelay = 1,
+         Duration = gameModeMetaData.TotalGameTime,
+         Mode = JobTimeMode.TIME,
+         OnProgress = OnGameTimeUpdated
+      });
    }
 
+   private void OnGameTimeUpdated(float time)
+   {
+      GameEvents.GameplayUIEvents.TimeUpdated.Raise(time);
+   }
+   
    private void StartRoundWithDelay()
    {
       Invoke(nameof(StartRound), 0.5f);
@@ -66,7 +98,9 @@ public class GameFlowHandler : MonoBehaviour
 
    private void StartRound()
    {
+      GameEvents.GameplayEvents.RoundStarted.Raise();
       HighlightPlayers();
+      
       Invoke(nameof(RoundFailed),
          Random.Range(_currentGameMode.MinTimeForSelection, _currentGameMode.MaxTimeForSelection));
    }
@@ -83,10 +117,16 @@ public class GameFlowHandler : MonoBehaviour
    private void OnGameCompleted()
    {
       Debug.Log($"Game completed {_gameScoreEvaluator.CurrentScore}");
+      _gameFlowOperationsController.OnGameOver();  
+   }
+
+   private void RoundWin()
+   {
+      _gameFlowOperationsController.OnCorrectSelection();
    }
    
    private void RoundFailed()
    {
-      Debug.LogError("Round Failed");
+      _gameFlowOperationsController.OnWrongSelection();
    }
 }

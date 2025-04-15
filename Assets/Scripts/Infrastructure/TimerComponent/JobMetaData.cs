@@ -6,6 +6,7 @@ using System;
 public class JobMetaData
 {
     public Action JobAction;
+    public Action<float> OnProgress;
     public JobTimeMode Mode;
     public Action OnJobCompleted;
     public float StepDelay;

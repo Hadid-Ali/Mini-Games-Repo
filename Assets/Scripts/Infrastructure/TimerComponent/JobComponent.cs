@@ -11,6 +11,7 @@ public abstract class JobComponent : MonoBehaviour
     private Action _actionOverTime;
     private Action _actionOnCompleted;
     private Action<JobComponent> _onJobCompleted;
+    private Action<float> _onProgress;
     
     private float _duration;
     private bool _isRunning;
@@ -26,6 +27,7 @@ public abstract class JobComponent : MonoBehaviour
         _actionOnCompleted = jobMetaData.OnJobCompleted;
         _onJobCompleted = onJobCompleted;
 
+        _onProgress = jobMetaData.OnProgress;
         _stepDelay = jobMetaData.StepDelay;
         _duration = jobMetaData.Duration;
         _isIndefinite = _duration < 0;
@@ -64,7 +66,7 @@ public abstract class JobComponent : MonoBehaviour
             return;
 
         _duration -= _stepDelay;
-        
+        _onProgress?.Invoke(_duration);
         if(!CanRun)
             StopInternal();
     }

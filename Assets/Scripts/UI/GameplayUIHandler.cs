@@ -7,17 +7,29 @@ using UnityEngine;
 public class GameplayUIHandler : UIMenuBase
 {
     [SerializeField] private GameText _scoreText;
+    [SerializeField] private GameText _timeText;
 
-    private void OnEnable()
+    protected override void OnContainerEnable()
     {
+        base.OnContainerEnable();
+        
         GameEvents.GameplayUIEvents.ScoreUpdated.Register(OnScoreUpdated);
+        GameEvents.GameplayUIEvents.TimeUpdated.Register(OnTimeUpdated);
     }
 
-    private void OnDisable()
+    protected override void OnContainerDisable()
     {
+        base.OnContainerDisable();
+        
         GameEvents.GameplayUIEvents.ScoreUpdated.UnRegister(OnScoreUpdated);
+        GameEvents.GameplayUIEvents.TimeUpdated.UnRegister(OnTimeUpdated);
     }
 
+    private void OnTimeUpdated(float time)
+    {
+        _timeText.SetText($"TIME: {time}");
+    }
+    
     private void OnScoreUpdated(int score, int addition)
     {
         _scoreText.SetText($"Score: {score}");
